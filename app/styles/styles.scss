@@ -1,0 +1,146 @@
+@function grayscale($value) {
+  @return #{ "grayscale(" + $value + ")" };
+}
+
+body {
+	margin:100px;
+	background:#222;
+}
+
+.shield {
+    position: relative;
+    width: 140px;
+    height: 175px;
+    background-color: white;
+    border-radius: 0 0 140px 140px;
+    display: inline-block;
+    z-index:800;
+    &.inner {
+    	height: 165px;
+		background:black;
+    	width: 130px;
+    	top: 5px;
+		left: 5px;
+		&:before, &:after {
+			background:black;
+	    	left: 65px;
+		    top: 45px;
+		    width: 70px;
+		    height: 80px;
+		}
+		&:after {
+			background:black;
+	    	left: -5px;
+
+		}
+
+    }
+	&:before, &:after {
+	    position: absolute;
+	    margin-top: 50px;
+	    content:"";
+	    left: 70px;
+	    top: 50px;
+	    width: 70px;
+	    height: 85px;
+	    background: white;
+	    border-radius: 100px 100px 0 0;
+	    transform: rotate(-60deg);
+	    transform-origin: 0 100%;
+	}
+	&:after {
+	    background-color: white;
+	    left: 0;
+	    transform: rotate(60deg);
+	    transform-origin :100% 100%;
+	}
+}
+
+//colors
+$color_viola_approx: white;
+$white: #222;
+$color_trendy_pink_approx: white;
+$color_falcon_approx: darken(white, 10%);
+
+//@extend-elements
+//original selectors
+//.ribbon:before, .ribbon:after
+%extend_1 {
+	content: "";
+	position: absolute;
+	display: block;
+	bottom: -1em;
+	border: 1.5em solid $color_trendy_pink_approx;
+	z-index: -1;
+}
+
+//original selectors
+//.ribbon .ribbon-content:before, .ribbon .ribbon-content:after
+%extend_2 {
+	content: "";
+	position: absolute;
+	display: block;
+	border-style: solid;
+	border-color: $color_falcon_approx transparent transparent transparent;
+	bottom: -1em;
+}
+
+
+.ribbon {
+	font-size: 16px !important;
+	width: 300px;
+	position: relative;
+	background: $color_viola_approx;
+	color: $white;
+	text-align: center;
+	padding: 1em 2em;
+	margin: 2em auto 3em;
+	&:before {
+		@extend %extend_1;
+		left: -2em;
+		border-right-width: 1.5em;
+		border-left-color: transparent;
+	}
+	&:after {
+		@extend %extend_1;
+		right: -2em;
+		border-left-width: 1.5em;
+		border-right-color: transparent;
+	}
+	.ribbon-content {
+		&:before {
+			@extend %extend_2;
+			left: 0;
+			border-width: 1em 0 0 1em;
+		}
+		&:after {
+			@extend %extend_2;
+			right: 0;
+			border-width: 1em 1em 0 0;
+		}
+	}
+}
+
+
+.computer {
+	margin:50px;
+	.lid {
+		height:50px;
+		width:80px;
+		border:2px solid white;
+		background:black;
+		&:before {
+			content:"hacker";
+			color:white;
+			width:100%;
+			display: block;
+			padding-top: 10px;
+			text-align: center;
+		}
+	}
+	.keyboard {
+		background:white;
+		height:15px;
+		width:80px;
+	}
+}
